@@ -1,6 +1,11 @@
 /*
     Author: Rohit Pandey ;)
 */
+/*
+Q. For a NFA over {a,b} such that all strings start with “ab” and end with “ba”, write a C
+program to check whether a given string is accepted or not by NFA using its transition
+table.
+*/
 #include <bits/stdc++.h>
 #include <vector>
 #include <queue>
