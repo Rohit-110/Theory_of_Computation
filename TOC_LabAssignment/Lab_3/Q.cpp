@@ -1,0 +1,48 @@
+/*
+    Author : Rohit Pandey ;)
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<vector<vector<int>>>tran={
+        {{-1},{1},{2}} , {{1,2},{2},{-1}} , {{0},{-1},{-1}}
+    };
+    queue<int>st;
+    string s;
+    cin>>s;
+    st.push(0);
+    for(int i=0;i<s.size();i++){
+        queue<int>ne;
+        while(!st.empty()){
+            for(int j=0;j<tran[st.front()][s[i]-'a'].size();j++){
+                if(tran[st.front()][s[i]-'a'][j]!=-1)
+                ne.push(tran[st.front()][s[i]-'a'][j]);
+            }
+            for(int j=0;j<tran[st.front()][2].size();j++){
+                if(tran[st.front()][2][j]!=-1){
+                    for(int k=0;k<tran[tran[st.front()][2][j]][s[i]-'a'].size();k++){
+                        if(tran[tran[st.front()][2][j]][s[i]-'a'][k]!=-1){
+                            ne.push(tran[tran[st.front()][2][j]][s[i]-'a'][k]);
+                        }
+                    }
+                }
+            }
+            cout<<st.front()<<endl;
+            st.pop();
+        }
+        while(!ne.empty()){
+            cout<<ne.front()<<" ";
+            st.push(ne.front());
+            ne.pop();
+        }
+        cout<<endl;
+    }
+    bool ans=false;
+    while(!st.empty()){
+        if(st.front()==0)ans=true;
+        st.pop();
+    }
+    if(ans)cout<<"String is accepted"<<endl;
+    else cout<<"Rejected"<<endl;
+}
