@@ -6,7 +6,7 @@ using namespace std;
 #define pb push_back
 int main(){
     vector<vector<vector<int>>>tran={
-        {{0,1},{1}},{{-1},{2}},{{2},{2}}
+        {{0},{0,1}},{{-1},{2}},{{2},{2}}
     };
     set<vector<int>>uniquestates;
     vector<vector<vector<int>>>dfa;
