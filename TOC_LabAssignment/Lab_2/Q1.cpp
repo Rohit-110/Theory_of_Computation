@@ -1,6 +1,14 @@
 /*
     Author: Rohit  Pandey ;)
+    
 */ 
+/*
+
+Q. For a NFA over {a,b} such that all strings start and end with the same symbols, write a C
+program to check whether a given string is accepted or not by NFA using its transition
+table.
+
+*/
 #include <iostream>
 #include <vector>
 #include <queue>
