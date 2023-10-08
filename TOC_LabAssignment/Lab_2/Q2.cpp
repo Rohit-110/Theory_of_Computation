@@ -6,58 +6,35 @@ Q. For a NFA over {a,b} such that all strings start with “ab” and end with �
 program to check whether a given string is accepted or not by NFA using its transition
 table.
 */
-#include <bits/stdc++.h>
-#include <vector>
-#include <queue>
-#include <string.h>
+#include<bits/stdc++.h>
 using namespace std;
-int main() {
-    char s[50];
-    scanf("%s",s);
-    queue<int> st;
-    st.push(0);
-    if(strlen(s)==3){
-        if(s[0]=='a' && s[1]=='b' && s[2]=='a'){
-            cout<<"String is accepted";
-        }
-        return 0;
-    }
-    vector<vector<vector<int>>> tran = {
-        {{1}, {-1}}, {{-1}, {2}}, {{2}, {2, 3}},{{4},{-1}}
+int main(){
+    string s;
+    cin>>s;
+    vector<vector<vector<int>>>tran={
+        {{1},{-1}},{{-1},{2}},{{3,4},{2}},{{-1},{-1}},{{4},{2}}
     };
-
-    queue<int>ne;
-    for (int i = 0; i < strlen(s); i++) {
-        while (st.size()>0) {
-            int currentState = st.front();
-            if(currentState!=4 && currentState!=-1)
-            for (int j = 0; j < tran[currentState][s[i] - 'a'].size(); j++) {
-                ne.push(tran[currentState][s[i] - 'a'][j]);
+    queue<int>st;
+    st.push(0);
+    for(int i=0;i<s.size();i++){
+        queue<int>ne;
+        while(st.size()!=0){
+            for(int j=0;j<tran[st.front()][s[i]-'a'].size();j++){
+                if(tran[st.front()][s[i]-'a'][j]!=-1)
+                ne.push(tran[st.front()][s[i]-'a'][j]);
             }
             st.pop();
         }
-        while(ne.size()>0){
+        while(ne.size()!=0){
             st.push(ne.front());
             ne.pop();
         }
     }
-
-    bool ans = false;
-    while (st.size()>0) {
-        if (st.front() == 4) {
-            ans = true;
-            break; 
-        }
+    bool ans=false;
+    while(st.size()!=0){
+        if(st.front()==3)ans=true;
         st.pop();
     }
-
-    if (ans) {
-        printf("String is accepted");
-    } else {
-        printf("Rejected");
-    }
-
-    cout << endl;
-
-    return 0;
+    if(ans)cout<<"String is accepted"<<endl;
+    else cout<<"String is Rejected"<<endl;
 }
