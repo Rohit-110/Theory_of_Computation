@@ -9,53 +9,35 @@ program to check whether a given string is accepted or not by NFA using its tran
 table.
 
 */
-#include <iostream>
-#include <vector>
-#include <queue>
+#include<bits/stdc++.h>
 using namespace std;
-
-int main() {
+int main(){
     string s;
-    cin >> s;
-    queue<int> st;
-    st.push(0);
-
-    vector<vector<vector<int>>> tran = {
-        {{1}, {2}}, {{1, 3}, {1}}, {{2}, {2, 3}},{{3},{3}}
+    cin>>s;
+    vector<vector<vector<int>>>tran={
+        {{1,3},{2,3}},{{1,3},{1}},{{2},{2,3}},{{-1},{-1}}
     };
-
-    queue<int>ne;
-    for (int i = 0; i < s.size(); i++) {
-        while (st.size()>0) {
-            int currentState = st.front();
-            if(currentState!=3)
-            for (int j = 0; j < tran[currentState][s[i] - 'a'].size(); j++) {
-                ne.push(tran[currentState][s[i] - 'a'][j]);
+    queue<int>st;
+    st.push(0);
+    for(int i=0;i<s.size();i++){
+        queue<int>ne;
+        while(st.size()!=0){
+            for(int j=0;j<tran[st.front()][s[i]-'a'].size();j++){
+                if(tran[st.front()][s[i]-'a'][j]!=-1)
+                ne.push(tran[st.front()][s[i]-'a'][j]);
             }
             st.pop();
         }
-        while(ne.size()>0){
+        while(ne.size()!=0){
             st.push(ne.front());
             ne.pop();
         }
     }
-
-    bool ans = false;
-    while (st.size()>0) {
-        if (st.front() == 3) {
-            ans = true;
-            break; 
-        }
+    bool ans=false;
+    while(st.size()!=0){
+        if(st.front()==3)ans=true;
         st.pop();
     }
-
-    if (ans) {
-        cout << "String is Accepted";
-    } else {
-        cout << "Rejected";
-    }
-
-    cout << endl;
-
-    return 0;
+    if(ans)cout<<"String is accepted"<<endl;
+    else cout<<"String is Rejected"<<endl;
 }
